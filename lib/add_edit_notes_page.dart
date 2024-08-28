@@ -9,7 +9,7 @@ class AddEditNotesPage extends StatelessWidget{
   bool isUpdate;
   String title,desc;
   AddEditNotesPage({this.isUpdate=false,this.sno=0,this.title="",this.desc=""});
-
+///Controller
   TextEditingController titlecontroller =TextEditingController();
   TextEditingController desccontroller =TextEditingController();
   @override
