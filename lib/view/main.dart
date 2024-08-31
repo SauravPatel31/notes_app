@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:notes_app/DBProvider.dart';
 import 'package:notes_app/data/dbhelper.dart';
-import 'package:notes_app/home_page.dart';
+import 'package:notes_app/view/home_page.dart';
 import 'package:provider/provider.dart';
 
 void main() {

@@ -12,6 +12,7 @@ class AddEditNotesPage extends StatelessWidget{
 
   TextEditingController titlecontroller =TextEditingController();
   TextEditingController desccontroller =TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     if(isUpdate){

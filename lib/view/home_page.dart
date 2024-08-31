@@ -2,7 +2,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:notes_app/DBProvider.dart';
-import 'package:notes_app/add_edit_notes_page.dart';
+import 'package:notes_app/view/add_edit_notes_page.dart';
 import 'package:notes_app/data/dbhelper.dart';
 import 'package:notes_app/notes_model.dart';
 import 'package:provider/provider.dart';
@@ -24,13 +24,15 @@ class HomePageState extends State<StatefulWidget> with SingleTickerProviderState
     super.initState();
     context.read<DBProvider>().getIntitNote();
   }
-  ///FetchAll Notes...
-/*  getAllNotes()async{
-    allNotes =await myDB.fetchNotes();
-    setState(() {
-
-    });
-  }*/
+  List myColor=[
+    Color(0xff6A1B9A),
+    Color(0xff283593),
+    Color(0xff00695B),
+    Color(0xff0277BD),
+    Color(0xffFF8E01),
+    Color(0xffF85181),
+    Color(0xff01828F),
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -62,6 +64,7 @@ class HomePageState extends State<StatefulWidget> with SingleTickerProviderState
                               height: 300,
                               width: 300,
                               decoration: BoxDecoration(
+                                //color: myColor[index] ,
                                   color: Colors.primaries[Random().nextInt(Colors.primaries.length-1)].shade800,
                                   borderRadius: BorderRadius.circular(15)
                               ),
