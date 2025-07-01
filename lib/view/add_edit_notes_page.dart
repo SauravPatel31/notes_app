@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:notes_app/DBProvider.dart';
-import 'package:notes_app/data/dbhelper.dart';
 import 'package:notes_app/notes_model.dart';
 import 'package:provider/provider.dart';
 
@@ -27,11 +26,11 @@ class AddEditNotesPage extends StatelessWidget{
               onTap: ()async{
                 if(titlecontroller.text.isNotEmpty&&desccontroller.text.isNotEmpty){
                   if(isUpdate){
-                    context.read<DBProvider>().updateNotes(NotesModel(title: titlecontroller.text, desc: desccontroller.text), sno);
+                    context.read<DBProvider>().updateNotes(NotesModel(title: titlecontroller.text, desc: desccontroller.text,created_at: DateTime.now().millisecondsSinceEpoch.toString()), sno);
                     Navigator.pop(context);
                   }
                   else{
-                    context.read<DBProvider>().addNotes(NotesModel(title: titlecontroller.text, desc: desccontroller.text));
+                    context.read<DBProvider>().addNotes(NotesModel(title: titlecontroller.text, desc: desccontroller.text,created_at: DateTime.now().millisecondsSinceEpoch.toString()));
                     Navigator.pop(context);
                   }
 

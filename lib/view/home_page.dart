@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
+import 'package:intl/intl.dart';
 import 'package:notes_app/DBProvider.dart';
 import 'package:notes_app/view/add_edit_notes_page.dart';
 import 'package:notes_app/data/dbhelper.dart';
@@ -8,6 +9,7 @@ import 'package:notes_app/notes_model.dart';
 import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget{
+  
   @override
   State<StatefulWidget> createState() {
     return HomePageState();
@@ -15,6 +17,7 @@ class HomePage extends StatefulWidget{
 
 }
 class HomePageState extends State<StatefulWidget> with SingleTickerProviderStateMixin{
+  DateFormat mFormate =DateFormat.yMMMd();
   TextEditingController titlecontroller =TextEditingController();
   TextEditingController desccontroller =TextEditingController();
  static List<NotesModel> allNotes=[];
@@ -54,42 +57,40 @@ class HomePageState extends State<StatefulWidget> with SingleTickerProviderState
                     verticalOffset: 50,
                     child: ScaleAnimation(
                       delay: Duration(milliseconds: 200),
-                      child: Stack(
-                        children: [
-                          InkWell(
-                            onTap: (){
-                              Navigator.push(context, MaterialPageRoute(builder: (context) => AddEditNotesPage(isUpdate: true,sno: allNotes[index].sno!,title: allNotes[index].title,desc: allNotes[index].desc,),));
-                            },
-                            child: Container(
-                              height: 300,
-                              width: 300,
-                              decoration: BoxDecoration(
-                                //color: myColor[index] ,
-                                  color: Colors.primaries[Random().nextInt(Colors.primaries.length-1)].shade800,
-                                  borderRadius: BorderRadius.circular(15)
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: SingleChildScrollView(
+                      child: InkWell(
+                        onTap: (){
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => AddEditNotesPage(isUpdate: true,sno: allNotes[index].sno!,title: allNotes[index].title,desc: allNotes[index].desc,),));
+                        },
+                        child: Container(
+                          width: 300,
+                          height: 300,
+                          color: Colors.blueAccent,
+                          child: GridTile(
+                            header: IconButton(onPressed: (){}, icon: Icon(Icons.account_circle_sharp,size: 30,),alignment: Alignment.topRight,),
+                            child: Center(
+                              child: Container(
+                                padding: EdgeInsets.all(5),
+                                  width: 300,
+                                  height: 170,
                                   child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
-                                      Text(allNotes[index].title,style: TextStyle(fontSize: 22 ,fontWeight: FontWeight.bold),),
-                                      Text(allNotes[index].desc,textAlign: TextAlign.justify,style: TextStyle(fontSize: 18),),
+                                      Text(
+                                        maxLines: 1,
+                                        overflow: TextOverflow.ellipsis,
+                                        allNotes[index].title,style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),),
+                                      Text(
+                                        maxLines: 4,
+                                        overflow: TextOverflow.ellipsis,
+                                        allNotes[index].desc,style: TextStyle(fontSize: 16),),
                                     ],
-                                  ),
-                                ),
-                              ),
+                                  )),
 
                             ),
+                            ///Notes Created Date-Time...
+                            footer: Text(mFormate.format(DateTime.fromMillisecondsSinceEpoch(int.parse(allNotes[index].created_at)))),
                           ),
-                          ///Delete Closed Button...
-                          Positioned(
-                              right: 0,
-                              child: IconButton(onPressed: ()async{
-                                context.read<DBProvider>().deleteNotes(allNotes[index].sno!);
-                              }, icon: Icon(Icons.close_outlined,size: 28,color: Colors.white,)))
-                        ],
+                        ),
                       ),
                     ),
                   ),
@@ -116,7 +117,28 @@ class HomePageState extends State<StatefulWidget> with SingleTickerProviderState
   }
 
 }
+/*Container(
+                              height: 300,
+                              width: 300,
+                              decoration: BoxDecoration(
+                                //color: myColor[index] ,
+                                  color: Colors.primaries[Random().nextInt(Colors.primaries.length-1)].shade800,
+                                  borderRadius: BorderRadius.circular(15)
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: SingleChildScrollView(
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(allNotes[index].title,style: TextStyle(fontSize: 22 ,fontWeight: FontWeight.bold),),
+                                      Text(allNotes[index].desc,textAlign: TextAlign.justify,style: TextStyle(fontSize: 18),),
+                                    ],
+                                  ),
+                                ),
+                              ),
 
+                            )*/
 /*showModalBottomSheet(context: context, builder: (_){
               return Container(
                 child: Column(

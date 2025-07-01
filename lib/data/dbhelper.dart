@@ -8,10 +8,11 @@ class Dbhelper {
   ///Single Instonces..
   Dbhelper._();
    static Dbhelper getInstance()=>Dbhelper._();
-   static final TABLE_NOTE ="notes";
-   static final COLUMN_SNO ="s_no";
-   static final COLUMN_TITLE ="title";
-   static final COLUMN_DESC ="desc";
+   static final String TABLE_NOTE ="notes";
+   static final String  COLUMN_SNO ="s_no";
+   static final String  COLUMN_TITLE ="title";
+   static final String  COLUMN_DESC ="desc";
+   static final String  COLUMN_CREATED_AT ="created";
 
    ///Global DB...
     Database? mdb;
@@ -33,7 +34,7 @@ class Dbhelper {
       Directory appDirc =await getApplicationDocumentsDirectory();
       String dbPath =join(appDirc.path,"notesapp.db");
      return await openDatabase(dbPath,onCreate:(db,version){
-        db.execute("create table $TABLE_NOTE ($COLUMN_SNO integer primary key autoincrement,$COLUMN_TITLE text,$COLUMN_DESC text)");
+        db.execute("create table $TABLE_NOTE ($COLUMN_SNO integer primary key autoincrement,$COLUMN_TITLE text,$COLUMN_DESC text,$COLUMN_CREATED_AT text)");
         //...
       },version: 1 );
     }
